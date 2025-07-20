@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Melody 18 - Invitación Disco</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap');
+  /* Reset */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body, html {
+    height: 100%;
+    background: radial-gradient(circle at center, #222 0%, #000 80%);
+    font-family: 'Montserrat', sans-serif;
+    color: #ccc;
+    overflow: hidden;
+  }
+  #bg-disco {
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: url('https://i.imgur.com/ZMgqPMr.jpg') center center/cover no-repeat;
+    filter: brightness(0.3);
+    animation: rotateBg 30s linear infinite;
+    z-index: -1;
+  }
+  @keyframes rotateBg {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+  }
+  .container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+  }
+  h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
+    color: #c0c0c0;
+    text-shadow:
+      0 0 10px #fff,
+      0 0 20px #bbb,
+      0 0 30px #eee,
+      0 0 40px #fff;
+    margin-bottom: 10px;
+    animation: glowText 2.5s ease-in-out infinite alternate;
+  }
+  @keyframes glowText {
+    from {
+      text-shadow:
+      0 0 10px #fff,
+      0 0 20px #bbb,
+      0 0 30px #eee,
+      0 0 40px #fff;
+    }
+    to {
+      text-shadow:
+      0 0 20px #fff,
+      0 0 40px #ddd,
+      0 0 60px #fff,
+      0 0 80px #ddd;
+    }
+  }
+  .subtitle {
+    font-size: 1.3rem;
+    color: #d0d0d0;
+    margin-bottom: 20px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-shadow: 0 0 8px #bbb;
+  }
+  .info {
+    font-size: 1.1rem;
+    color: #ddd;
+    margin-bottom: 10px;
+    text-shadow: 0 0 6px #aaa;
+  }
+  .btn {
+    background: #bbb;
+    color: #222;
+    padding: 12px 30px;
+    border-radius: 30px;
+    margin: 15px 10px 0;
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: 0 0 15px #eee;
+    transition: background 0.3s, color 0.3s;
+    display: inline-block;
+  }
+  .btn:hover {
+    background: #eee;
+    color: #000;
+  }
+  #countdown {
+    margin-top: 25px;
+    font-size: 1.3rem;
+    color: #ccc;
+    text-shadow: 0 0 10px #fff;
+  }
+  .footer {
+    margin-top: 35px;
+    font-size: 0.9rem;
+    color: #aaa;
+    font-style: italic;
+  }
+  /* Audio player style */
+  #audioControl {
+    margin-top: 25px;
+  }
+  audio {
+    outline: none;
+    filter: drop-shadow(0 0 3px #eee);
+    border-radius: 10px;
+  }
+</style>
+</head>
+<body>
+  <div id="bg-disco"></div>
+  <div class="container">
+    <h1>🎉 Melody cumple 18</h1>
+    <div class="subtitle">Gracias por formar parte de mi historia ✨</div>
+
+    <div class="info">📅 22 de julio</div>
+    <div class="info">🕔 5:00 p. m.</div>
+    <div class="info">📍 Av. Asunción con Jr. La Victoria (2 cdras del Parque 2 de Mayo)</div>
+    <a href="https://goo.gl/maps/FnkSF8b3Rr1TeSzv8" target="_blank" rel="noopener" class="btn">📍 Ver ubicación</a>
+    <a href="https://wa.me/51987654321?text=¡Hola%20Melody!%20Confirmo%20mi%20asistencia%20a%20tu%20cumple%20🪩" target="_blank" rel="noopener" class="btn">📩 Confirmar asistencia</a>
+
+    <div id="countdown">⏳ Cargando cuenta regresiva...</div>
+
+    <div id="audioControl">
+      <audio controls preload="none" >
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/18/audio_9d1b04bb43.mp3?filename=disco-beat-12310.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el audio.
+      </audio>
+    </div>
+
+    <div class="footer">Música: "¿Cuál es tu plan?" (simulada con beat disco)</div>
+  </div>
+
+  <script>
+    const eventDate = new Date("July 22, 2025 17:00:00").getTime();
+    const countdown = document.getElementById("countdown");
+
+    setInterval(() => {
+      const now = Date.now();
+      const diff = eventDate - now;
+      if(diff < 0){
+        countdown.textContent = "🎉 ¡La fiesta empezó!";
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      countdown.textContent = `⏳ Faltan ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
+  </script>
+</body>
+</html>
